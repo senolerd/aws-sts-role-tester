@@ -1,75 +1,119 @@
 <div class="container">
 
     <mat-card>
-        <mat-card-header> 
-            <mat-card-title>STS role assume token test</mat-card-title>
-        </mat-card-header>
-    
-        <mat-card-content>
 
-            <form [formGroup]="stsCredFG" >
+        <mat-drawer-container autosize> <!-- DRAWER  -->
 
-                <mat-form-field appearance="outline">
-                    <mat-label>Access Key</mat-label>
-                    <input matInput formControlName="access_key" placeholder="Access Key" >
-                </mat-form-field>
+            <mat-drawer  #drawer1 style="padding-right: 2rem; "mode="over" position="start">
 
-                <mat-form-field appearance="outline">
-                    <mat-label>Secret Key</mat-label>
-                    <input matInput formControlName="secret_key"  placeholder="Secret Key" >
-                </mat-form-field>
+                <div style="display: flex; justify-content: space-between;">
+                    <h1 >Query History</h1> 
+                    <button style="transform: scale(.8);" mat-icon-button (click)="drawer1.toggle()" color="warn"><mat-icon >close</mat-icon></button>
+                </div>
 
-                <mat-form-field appearance="outline">
-                    <mat-label>Role ARN</mat-label>
-                    <input matInput formControlName="role_arn" placeholder="Role ARN" >
-                </mat-form-field>
+                <ul style="list-style: none; padding: 0;">
+                    <li *ngFor="let query_item of historic_list; index as i" >
+                         <app-history-line [queryItem]="query_item" [index]="i" (wayback)="wayback($event);drawer1.toggle()" (remove)="history_remove($event)"></app-history-line>
+                    </li>
+                </ul>
 
-                <mat-form-field appearance="outline">
-                    <mat-label>Region</mat-label>
-                    <mat-select formControlName="region" >
-                        <mat-option value="us-east-1"> <b>us-east-1</b>  US East (N. Virginia) </mat-option>
-                        <mat-option value="us-east-2"> <b>us-east-2</b>  US East (Ohio) </mat-option>
-                        <mat-option value="us-west-1"> <b>us-west-1</b>  US West (N. California) </mat-option>
-                        <mat-option value="us-west-2"> <b>us-west-2</b>  US West (Oregon) </mat-option>
-                        <mat-option value="af-south-1"> <b>af-south-1</b>  Africa (Cape Town) </mat-option>
-                        <mat-option value="ap-east-1"> <b>ap-east-1</b>  Asia Pacific (Hong Kong) </mat-option>
-                        <mat-option value="ap-south-2"> <b>ap-south-2</b>  Asia Pacific (Hyderabad) </mat-option>
-                        <mat-option value="ap-southeast-3"> <b>ap-southeast-3</b>  Asia Pacific (Jakarta) </mat-option>
-                        <mat-option value="ap-southeast-4"> <b>ap-southeast-4</b>  Asia Pacific (Melbourne) </mat-option>
-                        <mat-option value="ap-south-1"> <b>ap-south-1</b>  Asia Pacific (Mumbai) </mat-option>
-                        <mat-option value="ap-northeast-1"> <b>ap-northeast-1</b>  Asia Pacific (Tokyo) </mat-option>
-                        <mat-option value="ap-northeast-2"> <b>ap-northeast-2</b>  Asia Pacific (Seoul) </mat-option>
-                        <mat-option value="ap-northeast-3"> <b>ap-northeast-3</b>  Asia Pacific (Osaka) </mat-option>
-                        <mat-option value="ap-southeast-1"> <b>ap-southeast-1</b>  Asia Pacific (Singapore) </mat-option>
-                        <mat-option value="ap-southeast-2"> <b>ap-southeast-2</b>  Asia Pacific (Sydney) </mat-option>
-                        <mat-option value="ca-central-1"> <b>ca-central-1</b>  Canada (Central) </mat-option>
-                        <mat-option value="eu-central-1"> <b>eu-central-1</b>  Europe (Frankfurt) </mat-option>
-                        <mat-option value="eu-west-1"> <b>eu-west-1</b>  Europe (Ireland) </mat-option>
-                        <mat-option value="eu-west-2"> <b>eu-west-2</b>  Europe (London) </mat-option>
-                        <mat-option value="eu-south-1"> <b>eu-south-1</b>  Europe (Milan) </mat-option>
-                        <mat-option value="eu-west-3"> <b>eu-west-3</b>  Europe (Paris) </mat-option>
-                        <mat-option value="eu-south-2"> <b>eu-south-2</b>  Europe (Spain) </mat-option>
-                        <mat-option value="eu-north-1"> <b>eu-north-1</b>  Europe (Stockholm) </mat-option>
-                        <mat-option value="eu-central-2"> <b>eu-central-2</b>  Europe (Zurich) </mat-option>
-                        <mat-option value="il-central-1"> <b>il-central-1</b>  Israel (Tel Aviv) </mat-option>
-                        <mat-option value="me-south-1"> <b>me-south-1</b>  Middle East (Bahrain) </mat-option>
-                        <mat-option value="me-central-1"> <b>me-central-1</b>  Middle East (UAE) </mat-option>
-                        <mat-option value="sa-east-1"> <b>sa-east-1</b>  South America (São Paulo) </mat-option>
-                    </mat-select>
-                  </mat-form-field>
+            </mat-drawer> <!-- / DRAWER -->
 
-            </form>
-        </mat-card-content>
 
-        <mat-card-actions>
-            <button [disabled]="isStsButtonDisabled" class="action-button" mat-raised-button (click)="stsAction()"> 
-                    <div style="display: flex; align-items: center;">                
-                        <span style="margin-right: .6rem;">Check STS for role </span>
-                        <mat-icon *ngIf="isStsSuccess == true"><span style="color: greenyellow;">generating_tokens</span></mat-icon>
-                        <mat-icon *ngIf="isStsSuccess == false"><span style="color: orangered;">error</span></mat-icon> 
+            <mat-drawer-content>
+
+                <mat-card-header> 
+                    <mat-card-title>STS Role Assume Test</mat-card-title>
+                </mat-card-header>
+            
+                <mat-card-content>
+        
+                    <form [formGroup]="stsCredFG" >
+        
+                        <mat-form-field appearance="outline">
+                            <mat-label>Access Key</mat-label>
+                            <input matInput formControlName="access_key" placeholder="Access Key" >
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline">
+                            <mat-label>Secret Key</mat-label>
+                            <input matInput formControlName="secret_key"  placeholder="Secret Key" >
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline">
+                            <mat-label>Role ARN</mat-label>
+                            <input matInput formControlName="role_arn" placeholder="Role ARN" >
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline">
+                            <mat-label>Region</mat-label>
+                            <mat-select formControlName="region" >
+                                <mat-option value="us-east-1"> <b>us-east-1</b>  US East (N. Virginia) </mat-option>
+                                <mat-option value="us-east-2"> <b>us-east-2</b>  US East (Ohio) </mat-option>
+                                <mat-option value="us-west-1"> <b>us-west-1</b>  US West (N. California) </mat-option>
+                                <mat-option value="us-west-2"> <b>us-west-2</b>  US West (Oregon) </mat-option>
+                                <mat-option value="af-south-1"> <b>af-south-1</b>  Africa (Cape Town) </mat-option>
+                                <mat-option value="ap-east-1"> <b>ap-east-1</b>  Asia Pacific (Hong Kong) </mat-option>
+                                <mat-option value="ap-south-2"> <b>ap-south-2</b>  Asia Pacific (Hyderabad) </mat-option>
+                                <mat-option value="ap-southeast-3"> <b>ap-southeast-3</b>  Asia Pacific (Jakarta) </mat-option>
+                                <mat-option value="ap-southeast-4"> <b>ap-southeast-4</b>  Asia Pacific (Melbourne) </mat-option>
+                                <mat-option value="ap-south-1"> <b>ap-south-1</b>  Asia Pacific (Mumbai) </mat-option>
+                                <mat-option value="ap-northeast-1"> <b>ap-northeast-1</b>  Asia Pacific (Tokyo) </mat-option>
+                                <mat-option value="ap-northeast-2"> <b>ap-northeast-2</b>  Asia Pacific (Seoul) </mat-option>
+                                <mat-option value="ap-northeast-3"> <b>ap-northeast-3</b>  Asia Pacific (Osaka) </mat-option>
+                                <mat-option value="ap-southeast-1"> <b>ap-southeast-1</b>  Asia Pacific (Singapore) </mat-option>
+                                <mat-option value="ap-southeast-2"> <b>ap-southeast-2</b>  Asia Pacific (Sydney) </mat-option>
+                                <mat-option value="ca-central-1"> <b>ca-central-1</b>  Canada (Central) </mat-option>
+                                <mat-option value="eu-central-1"> <b>eu-central-1</b>  Europe (Frankfurt) </mat-option>
+                                <mat-option value="eu-west-1"> <b>eu-west-1</b>  Europe (Ireland) </mat-option>
+                                <mat-option value="eu-west-2"> <b>eu-west-2</b>  Europe (London) </mat-option>
+                                <mat-option value="eu-south-1"> <b>eu-south-1</b>  Europe (Milan) </mat-option>
+                                <mat-option value="eu-west-3"> <b>eu-west-3</b>  Europe (Paris) </mat-option>
+                                <mat-option value="eu-south-2"> <b>eu-south-2</b>  Europe (Spain) </mat-option>
+                                <mat-option value="eu-north-1"> <b>eu-north-1</b>  Europe (Stockholm) </mat-option>
+                                <mat-option value="eu-central-2"> <b>eu-central-2</b>  Europe (Zurich) </mat-option>
+                                <mat-option value="il-central-1"> <b>il-central-1</b>  Israel (Tel Aviv) </mat-option>
+                                <mat-option value="me-south-1"> <b>me-south-1</b>  Middle East (Bahrain) </mat-option>
+                                <mat-option value="me-central-1"> <b>me-central-1</b>  Middle East (UAE) </mat-option>
+                                <mat-option value="sa-east-1"> <b>sa-east-1</b>  South America (São Paulo) </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+        
+                    </form>
+                </mat-card-content>
+        
+        
+                <mat-card-actions style="display: flex; justify-content: space-between;">
+                    <div>
+                        <button  [disabled]="isStsButtonDisabled" class="action-button" color="primary" mat-raised-button (click)="stsAction()"> 
+                            <div>                
+                                <span>Check Role </span>
+
+                            </div>
+                        </button>
                     </div>
-            </button>
-        </mat-card-actions>
-        <mat-card-footer></mat-card-footer>
+
+                    <div style="flex: 1;padding-left: 1rem;">
+                        <mat-icon mat- *ngIf="isStsSuccess == true"><span class="material-symbols-outlined" style="color: darkgreen">Done</span></mat-icon>
+                        <mat-icon *ngIf="isStsSuccess == false"><span class="material-symbols-outlined" style="color: orangered">Error</span> </mat-icon> 
+                        
+                    </div>
+        
+                    <div style="display: flex; align-items: center;">
+                        <button style="margin-left: 1rem;" *ngIf="historic_list.length > 0" type="button" mat-button (click)="drawer1.toggle()"> History </button>
+                        <button [disabled]="isFormCleaningButtonDisabled" (click)="clean_form()"><mat-icon>cleaning_services</mat-icon></button>
+                    </div>
+
+                </mat-card-actions>
+                <div *ngIf="!!this.errorMessage" class="error-box">
+                    <div>{{this.errorMessage}}</div>
+                </div>
+            </mat-drawer-content>
+        </mat-drawer-container>
+
+        <app-lambda-test *ngIf="isStsSuccess == true" ></app-lambda-test>
+        <!-- <app-lambda-test ></app-lambda-test> -->
+
     </mat-card>
 </div>
+

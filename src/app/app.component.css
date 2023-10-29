@@ -1,13 +1,15 @@
+
 .container {
     display: flex;
-    height: 100%;
     justify-content: center;
     align-items: center;
+    max-width: 40%;
+    margin: auto;
+    margin-top: 5rem;
 }
 mat-card {
-    /* margin: auto; */
     padding: 1rem;
-    min-width: 45rem;
+    min-width: 100%;
 
 }
 
@@ -17,7 +19,7 @@ mat-card-header {
 }
 
 mat-card-title {
-    font-size: 2rem;
+    /* font-size: 2rem; */
 
 }
 
@@ -32,6 +34,38 @@ mat-form-field {
 }
 
 .action-button{
-    margin: .3rem;
-    padding-right: 3rem;
+    /* margin: .3rem; */
+}
+
+.query-line-success{
+    border: 1px rgba(172, 255, 47, 0.3) solid;
+    margin-bottom:.4rem;
+    padding: .5rem;
+
+}
+
+.query-line-fail{
+    border: 1px rgba(255, 68, 0, 0.3) solid;
+    margin-bottom:.2rem;
+    padding: .5rem;
+
+}
+.query-line-success:hover{
+    background-color: rgba(172, 255, 47, 0.05);
+}
+.query-line-fail:hover{
+    background-color: rgba(255, 68, 0, 0.05);
+}
+
+.error-box{
+    max-width: 20rem;
+    padding-left: 1rem;
+}
+
+@media screen and (max-width: 810px) {
+    .container {
+        max-width: 100%;
+        margin-top: 0;
+
+    }
 }

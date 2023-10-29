@@ -1,0 +1,17 @@
+<mat-card style="margin: .3rem; padding: .5rem 1rem .5rem 1rem;" [style.backgroundColor]="queryItem.success ? 'rgba(172, 255, 47, 0.05)':'rgba(255, 68, 0, 0.05)'">
+<div style="display: flex; justify-content: space-between;">
+    <div>
+        <div>
+            <div><span ><b>Access Key: </b>{{queryItem.access_key.slice(0,4)}}...{{queryItem.access_key.slice(-4)}} </span></div>
+            <div><span ><b>Secrey Key: </b>{{queryItem.secret_key.slice(0,4)}}...{{queryItem.secret_key.slice(-4)}} </span></div>
+            <div><span ><b>Region: </b>{{queryItem.region}} </span></div>
+        </div>
+        <span ><b>Role Name: </b>{{queryItem.role_arn.split("/").slice(-1)}} </span> 
+    </div>
+
+    <div style="display: flex; flex-direction: column;">
+        <button class="scaled-btn" mat-mini-fab style="margin-left: 1rem; z-index: 3;" (click)="remove_item(index)"> <mat-icon >delete</mat-icon></button>
+        <button class="scaled-btn" mat-mini-fab style="margin-left: 1rem; z-index: 3;" (click)="wayback_item(queryItem)" alt="adf"> <mat-icon >play_arrow</mat-icon></button>
+    </div>
+</div>
+</mat-card>

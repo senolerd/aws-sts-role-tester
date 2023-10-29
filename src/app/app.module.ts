@@ -10,10 +10,15 @@ import { MatInputModule } from "@angular/material/input"
 import { MatSelectModule } from "@angular/material/select"
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from "@angular/material/icon"
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { HistoryLineComponent } from './sub_components/history-line/history-line.component';
+import { LambdaTestComponent } from './sub_components/lambda-test/lambda-test.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HistoryLineComponent,
+    LambdaTestComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,6 +30,7 @@ import { MatIconModule } from "@angular/material/icon"
     MatSelectModule,
     MatIconModule,
     ReactiveFormsModule,
+    MatSidenavModule
   
   ],
   providers: [],
