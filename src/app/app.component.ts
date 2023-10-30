@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { STSClient, STSClientConfig, AssumeRoleCommand, AssumeRoleCommandInput, AssumeRoleCommandOutput } from '@aws-sdk/client-sts'
 import { FormControl, FormGroup } from '@angular/forms';
+import { GenericService } from "./services/generic.service"
 
 export interface IQueryItem  {
   access_key: string,
@@ -18,11 +19,17 @@ export interface IQueryItem  {
 
 export class AppComponent {
 
+  constructor(
+    private _genericSVC: GenericService
+  ){}
+
   isStsButtonDisabled: Boolean = true
   isFormCleaningButtonDisabled: Boolean = true
   isStsSuccess:unknown = null
   currentValidRoleCredidentials: AssumeRoleCommandOutput|null = null
   errorMessage:string = ""
+
+
 
   historic_list:IQueryItem[] = [
   ] 
@@ -96,6 +103,7 @@ export class AppComponent {
         this.currentValidRoleCredidentials = response
         this.isStsSuccess = true
         this.isStsButtonDisabled = true
+        this._genericSVC.credentials$.next(response)
       })
       .catch((Err:Error) =>{
         this.history_add({...this.stsCredFG.getRawValue(), success:false})

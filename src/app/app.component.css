@@ -1,16 +1,16 @@
 
 .container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     max-width: 40%;
     margin: auto;
     margin-top: 5rem;
 }
 mat-card {
-    padding: 1rem;
-    min-width: 100%;
-
+    padding: .5rem;
+    width: 100%;
+    margin-bottom: .5rem;
 }
 
 mat-card-header {
@@ -20,7 +20,6 @@ mat-card-header {
 
 mat-card-title {
     /* font-size: 2rem; */
-
 }
 
 mat-card-content {

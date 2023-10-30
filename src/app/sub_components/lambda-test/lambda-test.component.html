@@ -1,4 +1,17 @@
-<p>lambda-test works!</p>
-<p>lambda-test works!</p>
-<p>lambda-test works!</p>
-<p>lambda-test works!</p>
+<mat-card-header>
+    <h1 >Lambda Test</h1> 
+</mat-card-header>
+<mat-card-content >
+
+    <mat-form-field appearance="outline" style="width: 100%; padding-right: 1rem;">
+        <mat-label>Function ARN</mat-label>
+        <input matInput [formControl]="fnName" placeholder="Function ARN" >
+    </mat-form-field>    
+    <button mat-raised-button (click)="lambdaTest()">Run</button>
+
+    <div style="margin-top: 1rem;" *ngIf="!!fnReturn">
+        Function Result: <p>{{fnReturn|json}}</p>
+    </div>
+
+</mat-card-content>
+

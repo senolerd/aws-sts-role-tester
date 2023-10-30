@@ -23,7 +23,7 @@
             <mat-drawer-content>
 
                 <mat-card-header> 
-                    <mat-card-title>STS Role Assume Test</mat-card-title>
+                    <mat-card-title><h1>STS Role Assume Test</h1></mat-card-title>
                 </mat-card-header>
             
                 <mat-card-content>
@@ -111,9 +111,16 @@
             </mat-drawer-content>
         </mat-drawer-container>
 
-        <app-lambda-test *ngIf="isStsSuccess == true" ></app-lambda-test>
+        
         <!-- <app-lambda-test ></app-lambda-test> -->
 
     </mat-card>
+    
+    <mat-card>
+        <app-lambda-test *ngIf="!!currentValidRoleCredidentials"  ></app-lambda-test>
+        
+    </mat-card>
+    
+    <!-- <app-lambda-test *ngIf="isStsSuccess == true" ></app-lambda-test> -->
+    
 </div>
-
