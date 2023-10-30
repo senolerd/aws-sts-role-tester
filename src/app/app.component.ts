@@ -25,8 +25,6 @@ export class AppComponent {
   errorMessage:string = ""
 
   historic_list:IQueryItem[] = [
-    { access_key:"a", region:"a", role_arn:"1",secret_key:"1",success:false},
-    { access_key:"AKIA37VBZ45S3IOC6CIO", region:"us-east-1", role_arn:"arn:aws:iam::823899318117:role/testFNInvokeRole-root",secret_key:"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",success:true},
   ] 
 
   stsCredFG = new FormGroup({
