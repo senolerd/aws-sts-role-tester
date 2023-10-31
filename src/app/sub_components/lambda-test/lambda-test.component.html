@@ -10,7 +10,7 @@
     <button mat-raised-button (click)="lambdaTest()">Run</button>
 
     <div style="margin-top: 1rem;" *ngIf="!!fnReturn">
-        Function Result: <p>{{fnReturn|json}}</p>
+        <h3>Function Result:</h3><p [class]="this.isFnReturnFail ? 'fail':'success'">{{fnReturn|json}}</p>
     </div>
 
 </mat-card-content>

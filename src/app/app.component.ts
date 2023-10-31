@@ -27,7 +27,7 @@ export class AppComponent {
   isFormCleaningButtonDisabled: Boolean = true
   isStsSuccess:unknown = null
   currentValidRoleCredidentials: AssumeRoleCommandOutput|null = null
-  errorMessage:string = ""
+  errorMessage:string|null = ""
 
 
 
@@ -81,7 +81,7 @@ export class AppComponent {
 
   stsAction() {
     this.isStsSuccess = null
-
+    this.errorMessage = null
     const sts_config:STSClientConfig = {
       region : this.stsCredFG.value.region?.toString(),
       credentials: {

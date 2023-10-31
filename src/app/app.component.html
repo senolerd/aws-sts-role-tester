@@ -82,7 +82,6 @@
                     </form>
                 </mat-card-content>
         
-        
                 <mat-card-actions style="display: flex; justify-content: space-between;">
                     <div>
                         <button  [disabled]="isStsButtonDisabled" class="action-button" color="primary" mat-raised-button (click)="stsAction()"> 
@@ -93,34 +92,33 @@
                         </button>
                     </div>
 
-                    <div style="flex: 1;padding-left: 1rem;">
-                        <mat-icon mat- *ngIf="isStsSuccess == true"><span class="material-symbols-outlined" style="color: darkgreen">Done</span></mat-icon>
-                        <mat-icon *ngIf="isStsSuccess == false"><span class="material-symbols-outlined" style="color: orangered">Error</span> </mat-icon> 
+                    <div  class="vert-flex-center" class="success left-4space" style="flex: 1;">
+                        <div  class="vert-flex-center" *ngIf="isStsSuccess == true">
+                            <mat-icon class="material-symbols-outlined">Done</mat-icon> <span class="left-1space"> Success </span>
+                        </div>
+                        <mat-icon *ngIf="isStsSuccess == false"><span class="material-symbols-outlined fail" >Error</span> </mat-icon> 
                         
                     </div>
         
-                    <div style="display: flex; align-items: center;">
-                        <button style="margin-left: 1rem;" *ngIf="historic_list.length > 0" type="button" mat-button (click)="drawer1.toggle()"> History </button>
-                        <button [disabled]="isFormCleaningButtonDisabled" (click)="clean_form()"><mat-icon>cleaning_services</mat-icon></button>
+                    <div class="vert-flex-center">
+                        <button *ngIf="historic_list.length > 0" type="button" mat-button (click)="drawer1.toggle()"> History </button>
+                        <button class="left-1space" [disabled]="isFormCleaningButtonDisabled" (click)="clean_form()"><mat-icon>cleaning_services</mat-icon></button>
                     </div>
 
                 </mat-card-actions>
-                <div *ngIf="!!this.errorMessage" class="error-box">
+
+                <div *ngIf="!!this.errorMessage" class="error-box fail">
                     <div>{{this.errorMessage}}</div>
                 </div>
+
             </mat-drawer-content>
         </mat-drawer-container>
-
-        
-        <!-- <app-lambda-test ></app-lambda-test> -->
-
     </mat-card>
     
-    <mat-card>
-        <app-lambda-test *ngIf="!!currentValidRoleCredidentials"  ></app-lambda-test>
+    <mat-card *ngIf="!!currentValidRoleCredidentials">
+        <app-lambda-test></app-lambda-test>
         
     </mat-card>
     
-    <!-- <app-lambda-test *ngIf="isStsSuccess == true" ></app-lambda-test> -->
     
 </div>

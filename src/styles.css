@@ -15,4 +15,22 @@ body {
   'opsz' 42
 }
 
+.left-1space {
+  margin-left: .2rem;
+}
 
+.left-2space {
+  margin-left: .4rem;
+}
+
+.left-4space {
+  margin-left: .8rem;
+}
+
+.success {
+  color: green;
+}
+
+.fail {
+  color: orangered
+}

@@ -17,7 +17,8 @@ export class LambdaTestComponent {
   ){}
 
   fnName = new FormControl()
-  fnReturn:any 
+  fnReturn:any
+  isFnReturnFail:Boolean|null = null
   config:LambdaClientConfig = {
     region: "us-east-1"
   }
@@ -27,10 +28,12 @@ export class LambdaTestComponent {
 
   _client.send(new InvokeCommand({FunctionName: this.fnName.value}))
     .then (res =>{
+      this.isFnReturnFail = false
       console.log(res)
       this.fnReturn = JSON.parse(new TextDecoder().decode(res.Payload))
     })
     .catch((error:Error) =>{
+      this.isFnReturnFail = true
       this.fnReturn = error.message
       console.log("Error: ", error.message)
     })
